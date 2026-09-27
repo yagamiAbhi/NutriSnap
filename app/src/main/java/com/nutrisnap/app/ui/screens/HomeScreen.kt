@@ -9,9 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.nutrisnap.app.ui.navigation.Screen
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,7 +26,9 @@ fun HomeScreen() {
         Text("Fat: 54 / 70 g")
         Text("Fiber: 31 / 35 g")
 
-        Button(onClick = {}) {
+        Button(onClick = {
+            navController.navigate(Screen.AddFood.route)
+        }) {
             Text("Add food")
         }
     }
