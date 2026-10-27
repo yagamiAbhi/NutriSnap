@@ -210,16 +210,20 @@ The initial MVP includes:
 
 ## MVP implementation status
 
-This repository contains the initial project skeleton and the core architecture required for the first development milestone. It intentionally keeps the app local-first, modular, and ready for incremental feature work.
+The current app includes local meal logging, saved foods, configurable macro targets, daily and 7/30-day summaries, Android camera/photo selection, Gemini food estimates, and an editable review-before-save flow. Nutrition history remains on-device in Room/SQLite. Gemini calls require the local key setup below.
 
-## Important security note
+## Gemini API key setup
 
-Do not commit an API key. Development should use a local `local.properties` or a secrets file excluded by `.gitignore`.
-
-Example approach:
+1. Get a Gemini API key from Google AI Studio: https://aistudio.google.com/apikey
+2. Open `D:\Abhishek\GitHub\NutriSnap\secrets.properties` (the file is already created locally and Git-ignored). Alternatively, copy `secrets.properties.example` to `secrets.properties` in the repository root.
+3. Replace `PASTE_YOUR_GEMINI_API_KEY_HERE` with your key. Keep the model line as-is unless you intentionally use another supported model:
 
 ```properties
-GEMINI_API_KEY=your_local_key_here
+GEMINI_API_KEY=PASTE_YOUR_GEMINI_API_KEY_HERE
+GEMINI_MODEL=gemini-3.8-flash
+GEMINI_FALLBACK_MODEL=gemini-3.6-flash
 ```
 
-This key should be loaded from a local, untracked config file and never committed to Git.
+4. Sync/rebuild the project in Android Studio. On temporary overload/rate responses, the app retries with exponential backoff and then tries `GEMINI_FALLBACK_MODEL`. The local key and models are loaded into BuildConfig; rebuild after changing them. `secrets.properties` is Git-ignored and must not be committed.
+
+Important: a key embedded in any Android application can be extracted from the APK. This local-only setup avoids accidental source-control commits, but it does not make a mobile API key secret. Use a key dedicated to this app, set appropriate restrictions/quotas in Google AI Studio/Cloud, and do not distribute this APK publicly with an unrestricted key.

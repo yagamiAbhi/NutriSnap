@@ -5,7 +5,8 @@ data class NutrientSpec(
     val label: String,
     val unit: String,
     val category: NutrientCategory,
-    val isMacro: Boolean = false
+    val isMacro: Boolean = false,
+    val defaultTarget: Double? = null
 )
 
 enum class NutrientCategory {
@@ -15,11 +16,11 @@ enum class NutrientCategory {
 }
 
 val NUTRIENT_DEFINITIONS: List<NutrientSpec> = listOf(
-    NutrientSpec("caloriesKcal", "Calories", "kcal", NutrientCategory.MACRO, true),
-    NutrientSpec("proteinG", "Protein", "g", NutrientCategory.MACRO, true),
-    NutrientSpec("carbohydratesG", "Carbohydrates", "g", NutrientCategory.MACRO, true),
-    NutrientSpec("fatG", "Fat", "g", NutrientCategory.MACRO, true),
-    NutrientSpec("fiberG", "Fiber", "g", NutrientCategory.MACRO, true),
+    NutrientSpec("caloriesKcal", "Calories", "kcal", NutrientCategory.MACRO, true, 2100.0),
+    NutrientSpec("proteinG", "Protein", "g", NutrientCategory.MACRO, true, 130.0),
+    NutrientSpec("carbohydratesG", "Carbohydrates", "g", NutrientCategory.MACRO, true, 280.0),
+    NutrientSpec("fatG", "Fat", "g", NutrientCategory.MACRO, true, 70.0),
+    NutrientSpec("fiberG", "Fiber", "g", NutrientCategory.MACRO, true, 35.0),
     NutrientSpec("sugarG", "Sugar", "g", NutrientCategory.MACRO),
     NutrientSpec("saturatedFatG", "Saturated Fat", "g", NutrientCategory.MACRO),
     NutrientSpec("calciumMg", "Calcium", "mg", NutrientCategory.MINERAL),
